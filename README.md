@@ -1,5 +1,7 @@
 # Notes App
 
+[![Deploy Website](https://github.com/jayeshcp/daily-notes/actions/workflows/surge.yml/badge.svg?branch=main)](https://github.com/jayeshcp/daily-notes/actions/workflows/surge.yml)
+
 ### Wireframe Design
 
 https://imgur.com/a/m5wDNnc
