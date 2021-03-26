@@ -8,6 +8,13 @@ https://imgur.com/a/m5wDNnc
 
 ### Change Log:
 
+25 March 2020:
+
+- Converted project to use TypeScript
+- Moved code into GitHub repo
+- Setup auto deploy on commit to `master` branch to https://daily-notes.surge.sh
+- Added surge deployment status badge in this README.md file
+
 9 June 2019:
 
 - Refactored reducers code and moved reducers to separate folder
