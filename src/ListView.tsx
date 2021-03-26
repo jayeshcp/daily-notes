@@ -13,13 +13,25 @@ const messages = {
   }
 };
 
-class ListView extends Component {
+type ListViewProps = {
+  intl: any,
+  items: any[];
+  onDelete: (any) => void;
+  onUpdate: (any, string) => void;
+}
+
+type ListViewState = {
+  pageSize: number
+}
+
+class ListView extends Component<ListViewProps, ListViewState> {
   constructor(props) {
     super(props);
     this.state = {
       pageSize: DEFAULT_PAGE_SIZE
     };
   }
+
   onContentChanged(newValue, id) {
     this.props.onUpdate(newValue, id);
   }
@@ -114,13 +126,5 @@ class ListView extends Component {
     );
   }
 }
-
-ListView.propTypes = {
-  items: PropTypes.arrayOf(PropTypes.object).isRequired,
-  onDelete: PropTypes.func.isRequired,
-  onUpdate: PropTypes.func.isRequired
-};
-
-ListView.defaultProps = {};
 
 export default injectIntl(ListView);

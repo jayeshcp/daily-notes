@@ -3,19 +3,27 @@ import PropTypes from "prop-types";
 import ReactQuill from "react-quill";
 import "./style.css";
 
-class ContentEditable extends Component {
+type ContentEditableProps = {
+  initialValue: string,
+  onContentChanged: (string) => void
+}
+
+type ContentEditableState = {
+  editing: boolean,
+  content: string
+}
+
+class ContentEditable extends Component<ContentEditableProps, ContentEditableState> {
+  static defaultProps = {
+    initialValue: ""
+  }
+
   constructor(props) {
     super(props);
     this.state = {
       editing: false,
       content: props.initialValue
     };
-  }
-
-  componentDidUpdate() {
-    if (this.textArea) {
-      this.textArea.focus();
-    }
   }
 
   onContentChanged() {
@@ -39,14 +47,5 @@ class ContentEditable extends Component {
     );
   }
 }
-
-ContentEditable.propTypes = {
-  initialValue: PropTypes.string,
-  onContentChanged: PropTypes.func.isRequired
-};
-
-ContentEditable.defaultProps = {
-  initialValue: ""
-};
 
 export default ContentEditable;

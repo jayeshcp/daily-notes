@@ -19,7 +19,20 @@ const messages = defineMessages({
   }
 });
 
-class Home extends Component {
+type HomeProps = {
+  notes: any[],
+  intl: any,
+  txtSearch: string,
+  createNote: (any) => void,
+  deleteNote: (string) => void,
+  updateNote: (any, string) => void
+};
+
+type HomeState = {
+  txtSearch: string
+}
+
+class Home extends Component<HomeProps, HomeState> {
   constructor(props) {
     super(props);
     this.state = {
@@ -27,7 +40,7 @@ class Home extends Component {
     };
   }
 
-  onFormSubmit(txtValue) {
+  onFormSubmit(txtValue: string) {
     const notes = this.props.notes.slice();
     const newNote = {
       id: notes && notes.length > 0 ? notes[0].id + 1 : 1,

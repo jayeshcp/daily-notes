@@ -13,8 +13,10 @@ import About from "./components/About";
 import Home from "./components/Home";
 
 class App extends Component {
-  constructor() {
-    super();
+  title: string;
+
+  constructor(props: any) {
+    super(props);
     this.title = `${config.appName} - v${config.appVersion}`;
   }
 

@@ -2,7 +2,7 @@ import { createStore } from "redux";
 import reducer from "./reducers";
 
 const persistedState = localStorage.getItem("appData")
-  ? JSON.parse(localStorage.getItem("appData"))
+  ? JSON.parse(localStorage.getItem("appData") || '{}')
   : {};
 
 const store = createStore(reducer, persistedState);

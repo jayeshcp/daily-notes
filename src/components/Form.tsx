@@ -2,12 +2,30 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import ReactQuill from "react-quill";
 
-class Form extends Component {
-  constructor(props) {
+type FormProps = {
+  txtValue?: string,
+  onChange?: (string) => void,
+  onFormSubmit: (string) => void,
+  type?: 'input' |'textarea',
+  placeholder?: string
+}
+
+type FormState = {
+  txtValue: string
+}
+
+class Form extends Component<FormProps, FormState> {
+  static defaultProps = {
+    txtValue: '',
+    type: 'textarea',
+    placeholder: 'how was your day?'
+  }
+
+  constructor(props: FormProps) {
     super(props);
     this.state = {
       txtValue: props.txtValue
-    };
+    } as FormState;
 
     this.onSave = this.onSave.bind(this);
   }
@@ -16,7 +34,9 @@ class Form extends Component {
     const { onChange } = this.props;
 
     this.setState({ txtValue });
-    onChange(txtValue);
+    if (onChange) {
+      onChange(txtValue);
+    }
   }
 
   onSave() {
@@ -68,20 +88,5 @@ class Form extends Component {
     );
   }
 }
-
-Form.propTypes = {
-  txtValue: PropTypes.string,
-  onChange: PropTypes.func,
-  onFormSubmit: PropTypes.func.isRequired,
-  type: PropTypes.oneOf(["input", "textarea"]),
-  placeholder: PropTypes.string
-};
-
-Form.defaultProps = {
-  txtValue: "",
-  onChange: (txtValue) => {},
-  type: "textarea",
-  placeholder: "how was your day?"
-};
 
 export default Form;

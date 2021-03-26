@@ -1,4 +1,8 @@
-const initialState = [];
+type NoteType = {
+  id: string
+};
+
+const initialState: NoteType[] = [];
 
 function reducer(state = initialState, action) {
   switch (action.type) {
