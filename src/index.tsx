@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { HashRouter } from 'react-router-dom';
 import { Provider } from "react-redux";
 import { IntlProvider } from "react-intl";
 import store from "./store";
@@ -11,7 +12,9 @@ ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
       <IntlProvider locale="en">
-        <App />
+        <HashRouter>
+          <App />
+        </HashRouter>
       </IntlProvider>
     </Provider>
   </React.StrictMode>,
