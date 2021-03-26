@@ -21,16 +21,9 @@ class Form extends Component<FormProps, FormState> {
     placeholder: 'how was your day?'
   }
 
-  constructor(props: FormProps) {
-    super(props);
-    this.state = {
-      txtValue: props.txtValue
-    } as FormState;
+  readonly state = { txtValue: this.props.txtValue || '' };
 
-    this.onSave = this.onSave.bind(this);
-  }
-
-  onChange(txtValue) {
+  onChange = (txtValue) => {
     const { onChange } = this.props;
 
     this.setState({ txtValue });
@@ -39,7 +32,7 @@ class Form extends Component<FormProps, FormState> {
     }
   }
 
-  onSave() {
+  onSave = () => {
     const { onFormSubmit } = this.props;
     const { txtValue } = this.state;
 
@@ -49,7 +42,7 @@ class Form extends Component<FormProps, FormState> {
     });
   }
 
-  onKeyDown(event) {
+  onKeyDown = (event) => {
     if (event.key === "Enter" && event.metaKey) {
       event.preventDefault();
       this.onSave();

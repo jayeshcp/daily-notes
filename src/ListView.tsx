@@ -25,12 +25,9 @@ type ListViewState = {
 }
 
 class ListView extends Component<ListViewProps, ListViewState> {
-  constructor(props) {
-    super(props);
-    this.state = {
-      pageSize: DEFAULT_PAGE_SIZE
-    };
-  }
+  readonly state = {
+    pageSize: DEFAULT_PAGE_SIZE
+  };
 
   onContentChanged(newValue, id) {
     this.props.onUpdate(newValue, id);

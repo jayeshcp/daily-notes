@@ -33,12 +33,9 @@ type HomeState = {
 }
 
 class Home extends Component<HomeProps, HomeState> {
-  constructor(props) {
-    super(props);
-    this.state = {
-      txtSearch: ""
-    };
-  }
+  readonly state = {
+    txtSearch: ''
+  };
 
   onFormSubmit(txtValue: string) {
     const notes = this.props.notes.slice();

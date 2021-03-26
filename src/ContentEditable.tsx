@@ -18,13 +18,10 @@ class ContentEditable extends Component<ContentEditableProps, ContentEditableSta
     initialValue: ""
   }
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      editing: false,
-      content: props.initialValue
-    };
-  }
+  readonly state = {
+    editing: false,
+    content: this.props.initialValue
+  };
 
   onContentChanged() {
     this.setState({ editing: !this.state.editing });
