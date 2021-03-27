@@ -1,6 +1,6 @@
 {
   "name": "typescript-notes",
-  "version": "1.0.9",
+  "version": "1.0.12",
   "private": true,
   "dependencies": {
     "moment": "2.22.1",
