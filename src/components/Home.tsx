@@ -95,7 +95,7 @@ class Home extends Component<HomeProps, HomeState> {
             )}
 
             {notes.length === 0 && (
-              <NoItemsMessage>
+              <NoItemsMessage data-marker="noNotesYet">
                 {intl.formatMessage(messages.noNotesYet)}
               </NoItemsMessage>
             )}

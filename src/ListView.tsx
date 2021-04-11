@@ -62,7 +62,7 @@ class ListView extends Component<ListViewProps, ListViewState> {
       return (
         <div className="card border-secondary mb-3" key={item.id}>
           <div className="card-header">
-            <span className="text-warning">
+            <span className="text-warning" data-marker="createdDate">
               {moment(item.createdDate).format("MMM D, YYYY (dddd)")}
             </span>
             <button
@@ -74,6 +74,7 @@ class ListView extends Component<ListViewProps, ListViewState> {
                 }
               }}
               title="Delete"
+              data-marker="delete"
             >
               <span className="fa fa-trash" />
             </button>
@@ -85,6 +86,7 @@ class ListView extends Component<ListViewProps, ListViewState> {
                 onContentChanged={(newValue) =>
                   this.onContentChanged(newValue, item.id)
                 }
+                data-marker="note"
               />
             </div>
           </div>
@@ -96,7 +98,7 @@ class ListView extends Component<ListViewProps, ListViewState> {
       <div className="row">
         <div className="col-md-12 col-sm-12">
           <div>
-            <small className="text-info">
+            <small className="text-info" data-marker="notesCount">
               Total: {items.length || 0}{" "}
               {this.props.intl.formatMessage(messages.entriesCount, {
                 count: items.length
@@ -105,7 +107,7 @@ class ListView extends Component<ListViewProps, ListViewState> {
             </small>
           </div>
 
-          <div>{rows}</div>
+          <div data-marker="rows">{rows}</div>
 
           {pageSize < items.length && (
             <div>
@@ -113,6 +115,7 @@ class ListView extends Component<ListViewProps, ListViewState> {
                 className="btn btn-link btn-block"
                 href="#"
                 onClick={(e) => this.onShowMore(e)}
+                data-marker="showMoreBtn"
               >
                 Show more
               </a>
