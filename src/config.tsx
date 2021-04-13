@@ -1,6 +1,6 @@
 const config = {
     appName: "Notes",
-    appVersion: "1.0.12"
+    appVersion: "1.0.13"
   };
   
   export default config;
