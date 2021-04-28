@@ -104,14 +104,13 @@ function ListView(props: ListViewProps) {
 
         {pageSize < items.length && (
           <div>
-            <a
+            <button
               className="btn btn-link btn-block"
-              href="#"
               onClick={(e) => onShowMore(e)}
               data-marker="showMoreBtn"
             >
               Show more
-            </a>
+            </button>
           </div>
         )}
       </div>
