@@ -1,6 +1,5 @@
 # Notes App
 
-[![Deploy Website](https://github.com/jayeshcp/daily-notes/actions/workflows/surge.yml/badge.svg?branch=main)](https://github.com/jayeshcp/daily-notes/actions/workflows/surge.yml)
 [![Maintainability](https://api.codeclimate.com/v1/badges/e4052af8762eb425821a/maintainability)](https://codeclimate.com/github/jayeshcp/daily-notes/maintainability)
 
 ### Wireframe Design
