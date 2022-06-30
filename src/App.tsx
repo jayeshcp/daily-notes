@@ -47,7 +47,7 @@ class App extends Component<{}, AppState> {
                   Notes <small>v{config.appVersion}</small>
                 </div>
                 <ul className="nav pull-right">
-                  <li>
+                  {/* <li>
                     <select
                       value={workspace}
                       onChange={(event) => this.setState({ workspace: event.target.value })}
@@ -55,7 +55,7 @@ class App extends Component<{}, AppState> {
                       <option value="work">Work</option>
                       <option value="personal">Personal</option>
                     </select>
-                  </li>
+                  </li> */}
                   <li>
                     <NavLink
                       className="menuItem"
