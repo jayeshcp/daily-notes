@@ -2,9 +2,10 @@
 
 [![Maintainability](https://api.codeclimate.com/v1/badges/e4052af8762eb425821a/maintainability)](https://codeclimate.com/github/jayeshcp/daily-notes/maintainability)
 
-## Wireframe Design
+## Screenshot
 
-https://imgur.com/a/m5wDNnc
+<img width="1469" alt="image" src="https://user-images.githubusercontent.com/4054338/179549826-2c5d50e1-2897-47ef-8492-b1fcbf0a3966.png">
+
 
 ## How to deploy to [Vercel](https://vercel.com/)
 
