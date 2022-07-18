@@ -2,11 +2,25 @@
 
 [![Maintainability](https://api.codeclimate.com/v1/badges/e4052af8762eb425821a/maintainability)](https://codeclimate.com/github/jayeshcp/daily-notes/maintainability)
 
-### Wireframe Design
+## Wireframe Design
 
 https://imgur.com/a/m5wDNnc
 
-### Change Log:
+## How to deploy to [Vercel](https://vercel.com/)
+
+From terminal, run: 
+
+```shell
+npm run build
+vercel
+```
+
+Enter your credentials for vercel login.
+
+Follow the prompts to deploy your project to vercel.
+
+
+## Change Log:
 
 25 March 2020:
 
