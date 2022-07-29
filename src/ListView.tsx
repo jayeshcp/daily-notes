@@ -1,16 +1,11 @@
 import React, { useState } from "react";
 import { injectIntl } from "react-intl";
-import moment from "moment";
-import ContentEditable from "./ContentEditable";
+import ListItem from "./components/ListItem";
+import NotesCount from "./components/NotesCount";
+import ShowMoreButton from "./components/ShowMoreButton";
+import { filterByIdReverse } from "./Utils";
 
 const DEFAULT_PAGE_SIZE = 2;
-
-const messages = {
-  entriesCount: {
-    id: "ListView.entriesCount",
-    defaultMessage: `{count, plural, one {entry} other {entries}}`
-  }
-};
 
 type ListViewProps = {
   intl: any,
@@ -22,23 +17,12 @@ type ListViewProps = {
 function ListView(props: ListViewProps) {
   const [pageSize, setPageSize] = useState(DEFAULT_PAGE_SIZE);
   const {
-    intl: { formatMessage },
     items: itemsOriginal,
     onDelete,
     onUpdate
   } = props;
   let [...items] = itemsOriginal;
-  items = items.sort((a, b) => {
-    if (a.id === b.id) {
-      return 0;
-    }
-
-    if (a.id > b.id) {
-      return -1;
-    }
-
-    return 1;
-  });
+  items = filterByIdReverse(items);
 
   const onContentChanged = (newValue: any, id: string) => {
     onUpdate(newValue, id);
@@ -53,65 +37,23 @@ function ListView(props: ListViewProps) {
 
   const rows = displayedItems.map((item) => {
     return (
-      <div className="card border-secondary mb-3" key={item.id}>
-        <div className="card-header">
-          <span className="text-warning" data-marker="createdDate">
-            {moment(item.createdDate).format("MMM D, YYYY (dddd)")}
-          </span>
-          <button
-            className="btn btn-sm btn-danger pull-right"
-            onClick={() => {
-              const result = window.confirm("Deleting note, are you sure?");
-              if (result) {
-                onDelete(item);
-              }
-            }}
-            title="Delete"
-            data-marker="delete"
-          >
-            <span className="fa fa-trash" />
-          </button>
-        </div>
-        <div className="card-body card">
-          <div className="card-text">
-            <ContentEditable
-              initialValue={item.note}
-              onContentChanged={(newValue: any) =>
-                onContentChanged(newValue, item.id)
-              }
-              data-marker="note"
-            />
-          </div>
-        </div>
-      </div>
+      <ListItem
+        item={item}
+        onDelete={onDelete}
+        onContentChanged={onContentChanged}
+      />
     );
   });
 
   return (
     <div className="row">
       <div className="col-md-12 col-sm-12">
-        <div>
-          <small className="text-info" data-marker="notesCount">
-            Total: {items.length || 0}{" "}
-            {formatMessage(messages.entriesCount, {
-              count: items.length
-            })}
-            !
-          </small>
-        </div>
+        <NotesCount items={items} />
 
         <div data-marker="rows">{rows}</div>
 
         {pageSize < items.length && (
-          <div>
-            <button
-              className="btn btn-link btn-block"
-              onClick={(e) => onShowMore(e)}
-              data-marker="showMoreBtn"
-            >
-              Show more
-            </button>
-          </div>
+          <ShowMoreButton onShowMore={onShowMore} />
         )}
       </div>
     </div>
