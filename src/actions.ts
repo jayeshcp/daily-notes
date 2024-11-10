@@ -23,6 +23,15 @@ const createNote = (note: any) => {
       }
     };
   };
+
+  const updateWorkspace = (workspace: string) => {
+    return {
+      type: "UPDATE_WORKSPACE",
+      payload: {
+        workspace
+      }
+    };
+  };
   
-  export { createNote, updateNote, deleteNote };
+  export { createNote, updateNote, deleteNote, updateWorkspace };
   

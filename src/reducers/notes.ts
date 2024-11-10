@@ -4,20 +4,69 @@ type NoteType = {
   createdDate: number
 };
 
-const initialState: NoteType[] = [];
+type AppState = {
+  workspaces: {
+    personal: {
+      notes: NoteType[]
+    },
+    work: {
+      notes: NoteType[]
+    }
+  },
+  currentWorkspace: 'personal' | 'work'
+};
+
+const initialState: AppState = {
+  workspaces: {
+    personal: {
+      notes: []
+    },
+    work: {
+      notes: []
+    }
+  },
+  currentWorkspace: 'personal'
+};
 
 function reducer(state = initialState, action) {
   switch (action.type) {
-    case "CREATE_NOTE":
-      return [action.payload, ...state];
-    case "UPDATE_NOTE":
-      return state.map((note: NoteType) =>
-        note.id === action.payload.id
-          ? { ...note, note: action.payload.note }
-          : note
-      );
-    case "DELETE_NOTE":
-      return state.filter((note: NoteType) => note.id !== action.payload.id);
+    case "CREATE_NOTE": {
+      return {
+        workspaces: {
+          ...state.workspaces,
+          [state.currentWorkspace]: {
+            notes: [action.payload, ...state.workspaces[state.currentWorkspace].notes]
+        },
+        },
+        currentWorkspace: state.currentWorkspace,
+      };
+    }
+
+    case "UPDATE_NOTE": {
+      const {currentWorkspace, workspaces} = state;
+      const notes = workspaces[currentWorkspace].notes;
+      workspaces[currentWorkspace].notes = notes.map((_note) => {
+        if (_note.id === action.payload.id) {
+          return { ..._note, note: action.payload.note }
+        }
+        return _note;
+      });
+      return { ...state };
+    }
+      
+    case "DELETE_NOTE": {
+      const {currentWorkspace, workspaces} = state;
+      const notes = workspaces[currentWorkspace].notes;
+      workspaces[currentWorkspace].notes = notes.filter((note: NoteType) => note.id !== action.payload.id);
+      return {...state};
+    }
+    case "UPDATE_WORKSPACE": {
+      const newWorkspace = action.payload.workspace;
+      return {
+        ...state,
+        currentWorkspace: newWorkspace
+      }
+    }
     default:
       return state;
   }

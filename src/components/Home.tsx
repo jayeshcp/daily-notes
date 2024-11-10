@@ -20,7 +20,7 @@ const messages = defineMessages({
 });
 
 type HomeProps = {
-  notes: any[],
+  currentState: any,
   intl: any,
   txtSearch: string,
   createNote: (any) => void,
@@ -38,7 +38,9 @@ class Home extends Component<HomeProps, HomeState> {
   };
 
   onFormSubmit(txtValue: string) {
-    const notes = this.props.notes.slice();
+    const { currentState: { currentWorkspace, workspaces }} = this.props;
+    const { notes } = workspaces[currentWorkspace];
+    
     const newNote = {
       id: notes && notes.length > 0 ? notes[0].id + 1 : 1,
       note: txtValue,
@@ -57,10 +59,13 @@ class Home extends Component<HomeProps, HomeState> {
   }
 
   render() {
-    const { intl, notes } = this.props;
+    const { intl, currentState } = this.props;
     const { txtSearch } = this.state;
 
-    const filteredNotes = notes.filter(({ note }) =>
+    const { currentWorkspace, workspaces } = currentState;
+    const { notes } = workspaces[currentWorkspace];
+
+    const filteredNotes = notes?.filter(({ note }) =>
       new RegExp(txtSearch, "i").test(note)
     );
 
@@ -108,7 +113,7 @@ class Home extends Component<HomeProps, HomeState> {
 
 const mapStateToProps = (state) => {
   return {
-    notes: state.notes
+    currentState: state.notes
   };
 };
 
