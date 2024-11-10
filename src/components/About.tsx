@@ -9,11 +9,17 @@ function About() {
           Write and manage your daily work milestones, or use as a daily diary.
         </p>
         <p>
-          <h6>Coming soon:</h6>
+          <h6 className="text-success">New Features:</h6>
           <ul>
-            <li>Search for your notes based on date</li>
-            <li>Ability to specify date when creating note</li>
-            <li>Ability to edit date on existing notes</li>
+            <li>
+              Workspaces: Manage notes in different workspaces
+            </li>
+          </ul>
+        </p>
+        <p>
+          <h6 className="text-warning">Coming soon:</h6>
+          <ul>
+            <li>Supabase for data persistence!</li>
           </ul>
         </p>
       </div>
