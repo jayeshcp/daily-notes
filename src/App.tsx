@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import { injectIntl } from "react-intl";
 import { Helmet } from "react-helmet";
 import { connect } from "react-redux";
@@ -14,92 +14,83 @@ import About from "./components/About";
 import Home from "./components/Home";
 import { updateWorkspace } from "./actions";
 
-type AppState = {}
 type AppProps = {
   currentState: any,
   intl: any,
   updateWorkspace: (any) => void
 };
-class App extends Component<AppProps, AppState> {
-  title: string;
 
-  constructor(props: any) {
-    super(props);
-    this.title = `${config.appName} - v${config.appVersion}`;
-  }
+const App: React.FC<AppProps> = ({ currentState, intl, updateWorkspace }) => {
+  const title = `${config.appName} - v${config.appVersion}`;
+  const { currentWorkspace } = currentState;
 
-  handleWorkspaceChange(event) {
-    this.props.updateWorkspace(event.target.value);
-  }
+  const handleWorkspaceChange = (event) => {
+    updateWorkspace(event.target.value);
+  };
 
-  render() {
-    const { title } = this;
-    const { currentState: { currentWorkspace } } = this.props;
+  const Root = () => <Redirect to="/home" />;
 
-    const Root = () => <Redirect to="/home" />;
+  return (
+    <div>
+      <Helmet>
+        <title>{title}</title>
+        <meta name="description" content="Todos on steroid!" />
+        <html lang="en" />
+      </Helmet>
 
-    return (
-      <div>
-        <Helmet>
-          <title>{title}</title>
-          <meta name="description" content="Todos on steroid!" />
-          <html lang="en" />
-        </Helmet>
-
-        <div className="container">
-          <Router>
-            <div className="row">
-              <div className="col-md-12">
-                <div className="header">
-                  Notes <small>v{config.appVersion}</small>
-                </div>
-                <ul className="nav pull-right">
-                  <li>
-                    <select
-                      value={currentWorkspace}
-                      onChange={event => this.handleWorkspaceChange(event)}
-                    >
-                      <option value="work">Work</option>
-                      <option value="personal">Personal</option>
-                    </select>
-                  </li>
-                  <li>
-                    <NavLink
-                      className="menuItem"
-                      activeClassName="active"
-                      to="/home"
-                    >
-                      Home
-                    </NavLink>
-                  </li>
-                  <li>
-                    <NavLink
-                      className="menuItem"
-                      activeClassName="active"
-                      to="/about"
-                    >
-                      About
-                    </NavLink>
-                  </li>
-                </ul>
-                <div className="clear"></div>
-                <div className="separator"></div>
+      <div className="container">
+        <Router>
+          <div className="row">
+            <div className="col-md-12">
+              <div className="header">
+                Notes <small>v{config.appVersion}</small>
               </div>
+              <ul className="nav pull-right">
+                <li>
+                  <select
+                    value={currentWorkspace}
+                    onChange={handleWorkspaceChange}
+                  >
+                    <option value="work">Work</option>
+                    <option value="personal">Personal</option>
+                  </select>
+                </li>
+                <li>
+                  <NavLink
+                    className="menuItem"
+                    activeClassName="active"
+                    to="/home"
+                  >
+                    Home
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    className="menuItem"
+                    activeClassName="active"
+                    to="/about"
+                  >
+                    About
+                  </NavLink>
+                </li>
+              </ul>
+              <div className="clear"></div>
+              <div className="separator"></div>
             </div>
+          </div>
 
-            <div style={{ marginTop: "20px" }}>
-              <Switch>
-                <Route exact path="/about" component={About} />
-                <Route exact path="/home" component={Home} />
-                <Route exact path="/" component={Root} />
-              </Switch>
-            </div>
-          </Router>
-        </div>
+          <div style={{ marginTop: "20px" }}>
+            <Switch>
+              <Route exact path="/about" component={About} />
+              <Route exact path="/home" component={Home} />
+              <Route exact path="/" component={Root} />
+            </Switch>
+          </div>
+        </Router>
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
 const mapStateToProps = (state) => {
   return {

@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { injectIntl, defineMessages } from "react-intl";
 import { connect } from "react-redux";
@@ -28,88 +28,81 @@ type HomeProps = {
   updateNote: (any, string) => void
 };
 
-type HomeState = {
-  txtSearch: string
-}
+const Home: React.FC<HomeProps> = ({
+  currentState,
+  intl,
+  createNote,
+  deleteNote,
+  updateNote
+}) => {
+  const [txtSearch, setTxtSearch] = useState("");
 
-class Home extends Component<HomeProps, HomeState> {
-  readonly state = {
-    txtSearch: ''
-  };
-
-  onFormSubmit(txtValue: string) {
-    const { currentState: { currentWorkspace, workspaces }} = this.props;
+  const onFormSubmit = (txtValue: string) => {
+    const { currentWorkspace, workspaces } = currentState;
     const { notes } = workspaces[currentWorkspace];
-    
+
     const newNote = {
       id: notes && notes.length > 0 ? notes[0].id + 1 : 1,
       note: txtValue,
       createdDate: Date.now()
     };
 
-    this.props.createNote(newNote);
-  }
+    createNote(newNote);
+  };
 
-  onDelete(item) {
-    this.props.deleteNote(item.id);
-  }
+  const onDelete = (item) => {
+    deleteNote(item.id);
+  };
 
-  onUpdate(newNote, id) {
-    this.props.updateNote(newNote, id);
-  }
+  const onUpdate = (newNote, id) => {
+    updateNote(newNote, id);
+  };
 
-  render() {
-    const { intl, currentState } = this.props;
-    const { txtSearch } = this.state;
+  const { currentWorkspace, workspaces } = currentState;
+  const { notes } = workspaces[currentWorkspace];
 
-    const { currentWorkspace, workspaces } = currentState;
-    const { notes } = workspaces[currentWorkspace];
+  const filteredNotes = notes?.filter(({ note }) =>
+    new RegExp(txtSearch, "i").test(note)
+  );
 
-    const filteredNotes = notes?.filter(({ note }) =>
-      new RegExp(txtSearch, "i").test(note)
-    );
-
-    return (
-      <div>
-        <div className="row">
-          <div className="col-md-12">
-            <Form onFormSubmit={(txtValue) => this.onFormSubmit(txtValue)} />
-          </div>
-        </div>
-        <div className="row">
-          <div className="col-md-12">
-            <input
-              type="search"
-              className="form-control"
-              value={txtSearch}
-              placeholder="search notes"
-              onChange={(event) =>
-                this.setState({ txtSearch: event.target.value })
-              }
-            />
-          </div>
-        </div>
-        <div className="row">
-          <div className="col-md-12">
-            {notes.length > 0 && (
-              <ListView
-                items={filteredNotes}
-                onDelete={(item) => this.onDelete(item)}
-                onUpdate={(newValue, id) => this.onUpdate(newValue, id)}
-              />
-            )}
-
-            {notes.length === 0 && (
-              <NoItemsMessage data-marker="noNotesYet">
-                {intl.formatMessage(messages.noNotesYet)}
-              </NoItemsMessage>
-            )}
-          </div>
+  return (
+    <div>
+      <div className="row">
+        <div className="col-md-12">
+          <Form onFormSubmit={(txtValue) => onFormSubmit(txtValue)} />
         </div>
       </div>
-    );
-  }
-}
+      <div className="row">
+        <div className="col-md-12">
+          <input
+            type="search"
+            className="form-control"
+            value={txtSearch}
+            placeholder="search notes"
+            onChange={(event) => setTxtSearch(event.target.value)}
+          />
+        </div>
+      </div>
+      <div className="row">
+        <div className="col-md-12">
+          {notes.length > 0 && (
+            <ListView
+              items={filteredNotes}
+              onDelete={(item) => onDelete(item)}
+              onUpdate={(newValue, id) => onUpdate(newValue, id)}
+            />
+          )}
+
+          {notes.length === 0 && (
+            <NoItemsMessage data-marker="noNotesYet">
+              {intl.formatMessage(messages.noNotesYet)}
+            </NoItemsMessage>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+};
 
 const mapStateToProps = (state) => {
   return {

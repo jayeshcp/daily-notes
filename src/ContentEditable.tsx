@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import ReactQuill from "react-quill";
 import "./style.css";
 
@@ -7,41 +7,30 @@ type ContentEditableProps = {
   onContentChanged: (string) => void
 }
 
-type ContentEditableState = {
-  editing: boolean,
-  content: string
-}
+const ContentEditable: React.FC<ContentEditableProps> = ({
+  initialValue = "",
+  onContentChanged
+}) => {
+  const [editing, setEditing] = useState(false);
+  const [content, setContent] = useState(initialValue);
 
-class ContentEditable extends Component<ContentEditableProps, ContentEditableState> {
-  static defaultProps = {
-    initialValue: ""
-  }
+  useEffect(() => {
+    if (!editing) {
+      onContentChanged(content);
+    }
+  }, [editing, content, onContentChanged]);
 
-  readonly state = {
-    editing: false,
-    content: this.props.initialValue
-  };
-
-  onContentChanged() {
-    this.setState({ editing: !this.state.editing });
-    this.props.onContentChanged(this.state.content);
-  }
-
-  render() {
-    const { editing, content } = this.state;
-
-    return (
-      <div className={editing ? "normal" : "content"}>
-        <ReactQuill
-          theme="bubble"
-          value={content}
-          onChange={(content) => this.setState({ content })}
-          onFocus={() => this.setState({ editing: !this.state.editing })}
-          onBlur={() => this.onContentChanged()}
-        />
-      </div>
-    );
-  }
-}
+  return (
+    <div className={editing ? "normal" : "content"}>
+      <ReactQuill
+        theme="bubble"
+        value={content}
+        onChange={setContent}
+        onFocus={() => setEditing(true)}
+        onBlur={() => setEditing(false)}
+      />
+    </div>
+  );
+};
 
 export default ContentEditable;
