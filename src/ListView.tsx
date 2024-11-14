@@ -10,6 +10,7 @@ const DEFAULT_PAGE_SIZE = 2;
 type ListViewProps = {
   intl: any,
   items: any[];
+  currentWorkspace: string;
   onDelete: (any) => void;
   onUpdate: (any, string) => void;
 }
@@ -18,6 +19,7 @@ function ListView(props: ListViewProps) {
   const [pageSize, setPageSize] = useState(DEFAULT_PAGE_SIZE);
   const {
     items: itemsOriginal,
+    currentWorkspace,
     onDelete,
     onUpdate
   } = props;
@@ -41,6 +43,7 @@ function ListView(props: ListViewProps) {
         item={item}
         onDelete={onDelete}
         onContentChanged={onContentChanged}
+        key={`${currentWorkspace}-${item.id}`}
       />
     );
   });
