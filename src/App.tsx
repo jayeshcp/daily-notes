@@ -13,6 +13,7 @@ import config from "./config";
 import About from "./components/About";
 import Home from "./components/Home";
 import { updateWorkspace } from "./actions";
+import AddEditNote from "./components/AddEditNote";
 
 type AppProps = {
   currentState: any,
@@ -83,6 +84,7 @@ function App(props: AppProps) {
             <Switch>
               <Route exact path="/about" component={About} />
               <Route exact path="/home" component={Home} />
+              <Route exact path="/note/:id?" component={AddEditNote} />
               <Route exact path="/" component={Root} />
             </Switch>
           </div>

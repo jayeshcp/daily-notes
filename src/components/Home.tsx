@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { injectIntl, defineMessages } from "react-intl";
 import { connect } from "react-redux";
-import { createNote, updateNote, deleteNote } from "../actions";
-import Form from "./Form";
+import { updateNote, deleteNote } from "../actions";
 import ListView from "../ListView";
+import { NavLink } from "react-router-dom";
 
 const NoItemsMessage = styled.div`
   font-size: 0.8em;
@@ -23,13 +23,12 @@ type HomeProps = {
   currentState: any;
   intl: any;
   txtSearch: string;
-  createNote: (any) => void;
   deleteNote: (string) => void;
   updateNote: (any, string) => void;
 };
 
 function Home(props: HomeProps) {
-  const { intl, currentState, createNote, updateNote, deleteNote } = props;
+  const { intl, currentState, updateNote, deleteNote } = props;
   const [txtSearch, setTxtSearch] = useState("");
 
   const { currentWorkspace, workspaces } = currentState;
@@ -38,17 +37,6 @@ function Home(props: HomeProps) {
   const filteredNotes = notes?.filter(({ note }) =>
     new RegExp(txtSearch, "i").test(note)
   );
-
-  const onFormSubmit = (txtValue: string) => {
-    const newNote = {
-      id: notes && notes.length > 0 ? notes[0].id + 1 : 1,
-      note: txtValue,
-      createdDate: Date.now(),
-    };
-
-    createNote(newNote);
-    setTxtSearch('');
-  };
 
   const onDelete = (item) => {
     deleteNote(item.id);
@@ -61,8 +49,13 @@ function Home(props: HomeProps) {
   return (
     <div>
       <div className="row">
-        <div className="col-md-12">
-          <Form onFormSubmit={(txtValue) => onFormSubmit(txtValue)} />
+        <div className="col-md-12 mb-3">
+          <NavLink
+            className="btn btn-sm btn-primary"
+            to="/note/#"
+          >
+            New Note
+          </NavLink>
         </div>
       </div>
       <div className="row">
@@ -108,7 +101,6 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    createNote: (note) => dispatch(createNote(note)),
     deleteNote: (id) => dispatch(deleteNote(id)),
     updateNote: (newNote, id) => dispatch(updateNote(newNote, id)),
   };
