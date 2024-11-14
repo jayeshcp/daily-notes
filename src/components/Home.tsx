@@ -28,10 +28,6 @@ type HomeProps = {
   updateNote: (any, string) => void;
 };
 
-type HomeState = {
-  txtSearch: string;
-};
-
 function Home(props: HomeProps) {
   const { intl, currentState, createNote, updateNote, deleteNote } = props;
   const [txtSearch, setTxtSearch] = useState("");
