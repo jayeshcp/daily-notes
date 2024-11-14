@@ -9,7 +9,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
-  <React.StrictMode>
+  <React.Fragment>
     <Provider store={store}>
       <IntlProvider locale="en">
         <HashRouter>
@@ -17,7 +17,7 @@ ReactDOM.render(
         </HashRouter>
       </IntlProvider>
     </Provider>
-  </React.StrictMode>,
+  </React.Fragment>,
   document.getElementById('root')
 );
 
