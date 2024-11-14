@@ -1,84 +1,61 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import ReactQuill from "react-quill";
 
 type FormProps = {
-  txtValue?: string,
   onChange?: (string) => void,
   onFormSubmit: (string) => void,
-  type?: 'input' |'textarea',
   placeholder?: string
 }
 
-type FormState = {
-  txtValue: string
-}
+function Form(props: FormProps) {
+  const { placeholder = 'how was your day?', onChange, onFormSubmit } = props;
+  const [txtValue, setTxtValue] = useState('');
 
-class Form extends Component<FormProps, FormState> {
-  static defaultProps = {
-    txtValue: '',
-    type: 'textarea',
-    placeholder: 'how was your day?'
-  }
-
-  readonly state = { txtValue: this.props.txtValue || '' };
-
-  onChange = (txtValue) => {
-    const { onChange } = this.props;
-
-    this.setState({ txtValue });
+  const handleOnChange = (newValue) => {
+    setTxtValue(newValue);
     if (onChange) {
-      onChange(txtValue);
+      onChange(newValue);
     }
-  }
+  };
 
-  onSave = () => {
-    const { onFormSubmit } = this.props;
-    const { txtValue } = this.state;
-
+  const onSave = () => {
     onFormSubmit(txtValue);
-    this.setState({
-      txtValue: ""
-    });
-  }
+    setTxtValue('');
+  };
 
-  onKeyDown = (event) => {
+  const onKeyDown = (event) => {
     if (event.key === "Enter" && event.metaKey) {
       event.preventDefault();
-      this.onSave();
+      onSave();
       return false;
     }
-  }
+  };
 
-  render() {
-    const { txtValue } = this.state;
-    const { placeholder } = this.props;
-
-    return (
-      <div className="row" style={{ marginBottom: "1em" }}>
-        <div className="col-md-12 col-sm-12">
-          <ReactQuill
-            className="form-control"
-            placeholder={placeholder}
-            theme="bubble"
-            value={txtValue}
-            onChange={(txtValue) => this.onChange(txtValue)}
-            onKeyDown={(e) => this.onKeyDown(e)}
-          />
-        </div>
-
-        <div className="col-md-12 col-sm-12">
-          <small className="text-muted pull-right">Cmd+Enter to submit</small>
-          <button
-            className="btn btn-success btn-sm btn-block"
-            onClick={this.onSave}
-            disabled={!txtValue || txtValue.trim() === ""}
-          >
-            Save
-          </button>
-        </div>
+  return (
+    <div className="row" style={{ marginBottom: "1em" }}>
+      <div className="col-md-12 col-sm-12">
+        <ReactQuill
+          className="form-control"
+          placeholder={placeholder}
+          theme="bubble"
+          value={txtValue}
+          onChange={(txtValue) => handleOnChange(txtValue)}
+          onKeyDown={(e) => onKeyDown(e)}
+        />
       </div>
-    );
-  }
+
+      <div className="col-md-12 col-sm-12">
+        <small className="text-muted pull-right">Cmd+Enter to submit</small>
+        <button
+          className="btn btn-success btn-sm btn-block"
+          onClick={onSave}
+          disabled={!txtValue || txtValue.trim() === ""}
+        >
+          Save
+        </button>
+      </div>
+    </div>
+  );
 }
 
 export default Form;
