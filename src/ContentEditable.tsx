@@ -4,7 +4,7 @@ import "./style.css";
 
 type ContentEditableProps = {
   initialValue: string,
-  onContentChanged: (string) => void
+  onContentChanged: (newValue: string) => void
 }
 
 function ContentEditable(props: ContentEditableProps) {

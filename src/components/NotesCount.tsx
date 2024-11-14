@@ -1,9 +1,10 @@
 import React from "react";
 import { injectIntl } from "react-intl";
+import { NoteType } from "../shared/types/note";
 
 type NotesCountProps = {
   intl: any,
-  items: any[];
+  items: NoteType[];
 }
 
 const messages = {

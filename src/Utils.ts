@@ -1,8 +1,6 @@
-interface Item {
-  id: number
-}
+import { NoteType } from "./shared/types/note";
 
-export const filterByIdReverse = (items: Item[]) => {
+export const filterByIdReverse = (items: NoteType[]) => {
   return items.sort((a, b) => {
     if (a.id === b.id) {
       return 0;

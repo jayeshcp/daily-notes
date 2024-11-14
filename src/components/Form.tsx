@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import ReactQuill from "react-quill";
 
 type FormProps = {
-  onChange?: (string) => void,
-  onFormSubmit: (string) => void,
+  onChange?: (newValue: string) => void,
+  onFormSubmit: (newValue: string) => void,
   placeholder?: string
 }
 
@@ -11,7 +11,7 @@ function Form(props: FormProps) {
   const { placeholder = 'how was your day?', onChange, onFormSubmit } = props;
   const [txtValue, setTxtValue] = useState('');
 
-  const handleOnChange = (newValue) => {
+  const handleOnChange = (newValue: string) => {
     setTxtValue(newValue);
     if (onChange) {
       onChange(newValue);
@@ -23,7 +23,7 @@ function Form(props: FormProps) {
     setTxtValue('');
   };
 
-  const onKeyDown = (event) => {
+  const onKeyDown = (event: any) => {
     if (event.key === "Enter" && event.metaKey) {
       event.preventDefault();
       onSave();

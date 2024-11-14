@@ -14,11 +14,12 @@ import About from "./components/About";
 import Home from "./components/Home";
 import { updateWorkspace } from "./actions";
 import AddEditNote from "./components/AddEditNote";
+import { AppState } from "./reducers/notes";
 
 type AppProps = {
-  currentState: any,
+  currentState: AppState,
   intl: any,
-  updateWorkspace: (any) => void
+  updateWorkspace: (workspace: string) => void
 };
 
 function App(props: AppProps) {
@@ -27,7 +28,7 @@ function App(props: AppProps) {
 
   const Root = () => <Redirect to="/home" />;
 
-  const handleWorkspaceChange = (event) => {
+  const handleWorkspaceChange = (event: any) => {
     updateWorkspace(event.target.value);
   };
 
@@ -94,15 +95,15 @@ function App(props: AppProps) {
   );
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state: { notes: AppState }) => {
   return {
     currentState: state.notes
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch: any) => {
   return {
-    updateWorkspace: (workspace) => dispatch(updateWorkspace(workspace))
+    updateWorkspace: (workspace: string) => dispatch(updateWorkspace(workspace))
   };
 };
 

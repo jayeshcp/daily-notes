@@ -4,15 +4,16 @@ import ListItem from "./components/ListItem";
 import NotesCount from "./components/NotesCount";
 import ShowMoreButton from "./components/ShowMoreButton";
 import { filterByIdReverse } from "./Utils";
+import { NoteType } from "./shared/types/note";
 
 const DEFAULT_PAGE_SIZE = 2;
 
 type ListViewProps = {
   intl: any,
-  items: any[];
+  items: NoteType[];
   currentWorkspace: string;
-  onDelete: (any) => void;
-  onUpdate: (any, string) => void;
+  onDelete: (item: NoteType) => void;
+  onUpdate: (newValue: NoteType, id: string) => void;
 }
 
 function ListView(props: ListViewProps) {
@@ -26,18 +27,18 @@ function ListView(props: ListViewProps) {
   let [...items] = itemsOriginal;
   items = filterByIdReverse(items);
 
-  const onContentChanged = (newValue: any, id: string) => {
+  const onContentChanged = (newValue: NoteType, id: string) => {
     onUpdate(newValue, id);
   };
 
-  const onShowMore = (event) => {
+  const onShowMore = (event: any) => {
     setPageSize(pageSize + 1);
     event.preventDefault();
   };
 
   const displayedItems = items.slice(0, pageSize);
 
-  const rows = displayedItems.map((item) => {
+  const rows = displayedItems.map((item: NoteType) => {
     return (
       <ListItem
         item={item}

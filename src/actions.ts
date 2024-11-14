@@ -1,11 +1,13 @@
-const createNote = (note: any) => {
+import { NoteType } from "./shared/types/note";
+
+const createNote = (note: NoteType) => {
     return {
       type: "CREATE_NOTE",
       payload: note
     };
   };
   
-  const updateNote = (note: any, id: string) => {
+  const updateNote = (note: NoteType, id: string) => {
     return {
       type: "UPDATE_NOTE",
       payload: {

@@ -5,6 +5,8 @@ import { connect } from "react-redux";
 import { updateNote, deleteNote } from "../actions";
 import ListView from "../ListView";
 import { NavLink } from "react-router-dom";
+import { NoteType } from "../shared/types/note";
+import { AppState } from "../reducers/notes";
 
 const NoItemsMessage = styled.div`
   font-size: 0.8em;
@@ -20,11 +22,11 @@ const messages = defineMessages({
 });
 
 type HomeProps = {
-  currentState: any;
+  currentState: AppState;
   intl: any;
   txtSearch: string;
-  deleteNote: (string) => void;
-  updateNote: (any, string) => void;
+  deleteNote: (id: string) => void;
+  updateNote: (newNote: NoteType, id: string) => void;
 };
 
 function Home(props: HomeProps) {
@@ -38,11 +40,11 @@ function Home(props: HomeProps) {
     new RegExp(txtSearch, "i").test(note)
   );
 
-  const onDelete = (item) => {
+  const onDelete = (item: NoteType) => {
     deleteNote(item.id);
   };
 
-  const onUpdate = (newNote, id) => {
+  const onUpdate = (newNote: NoteType, id: string) => {
     updateNote(newNote, id);
   };
 
@@ -65,7 +67,7 @@ function Home(props: HomeProps) {
             className="form-control"
             value={txtSearch}
             placeholder="search notes"
-            onChange={(event) =>
+            onChange={(event: any) =>
               setTxtSearch(event.target.value)
             }
           />
@@ -77,8 +79,8 @@ function Home(props: HomeProps) {
             <ListView
               items={filteredNotes}
               currentWorkspace={currentWorkspace}
-              onDelete={(item) => onDelete(item)}
-              onUpdate={(newValue, id) => onUpdate(newValue, id)}
+              onDelete={(item: NoteType) => onDelete(item)}
+              onUpdate={(newValue: NoteType, id: string) => onUpdate(newValue, id)}
             />
           )}
 
@@ -93,16 +95,16 @@ function Home(props: HomeProps) {
   );
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state: { notes: AppState }) => {
   return {
     currentState: state.notes,
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch: any) => {
   return {
-    deleteNote: (id) => dispatch(deleteNote(id)),
-    updateNote: (newNote, id) => dispatch(updateNote(newNote, id)),
+    deleteNote: (id: string) => dispatch(deleteNote(id)),
+    updateNote: (newNote: NoteType, id: string) => dispatch(updateNote(newNote, id)),
   };
 };
 

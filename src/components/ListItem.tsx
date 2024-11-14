@@ -1,11 +1,12 @@
 import React from "react";
 import moment from "moment";
 import ContentEditable from "../ContentEditable";
+import { NoteType } from "../shared/types/note";
 
 type ListItemProps = {
-  item: any,
-  onDelete: (item: any) => void,
-  onContentChanged: (newValue: any, id: string) => void
+  item: NoteType,
+  onDelete: (item: NoteType) => void,
+  onContentChanged: (newValue: NoteType, id: string) => void
 };
 
 function ListItem({ item, onDelete, onContentChanged }: ListItemProps) {
