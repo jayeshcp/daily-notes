@@ -25,8 +25,8 @@ type HomeProps = {
   currentState: AppState;
   intl: any;
   txtSearch: string;
-  deleteNote: (id: string) => void;
-  updateNote: (newNote: NoteType, id: string) => void;
+  deleteNote: (id: number) => void;
+  updateNote: (newNote: NoteType, id: number) => void;
 };
 
 function Home(props: HomeProps) {
@@ -44,7 +44,7 @@ function Home(props: HomeProps) {
     deleteNote(item.id);
   };
 
-  const onUpdate = (newNote: NoteType, id: string) => {
+  const onUpdate = (newNote: NoteType, id: number) => {
     updateNote(newNote, id);
   };
 
@@ -53,7 +53,7 @@ function Home(props: HomeProps) {
       <div className="row">
         <div className="col-md-12 mb-3">
           <NavLink
-            className="btn btn-sm btn-primary"
+            className="btn btn-sm btn-info"
             to="/note/#"
           >
             New Note
@@ -80,7 +80,7 @@ function Home(props: HomeProps) {
               items={filteredNotes}
               currentWorkspace={currentWorkspace}
               onDelete={(item: NoteType) => onDelete(item)}
-              onUpdate={(newValue: NoteType, id: string) => onUpdate(newValue, id)}
+              onUpdate={(newValue: NoteType, id: number) => onUpdate(newValue, id)}
             />
           )}
 
@@ -103,8 +103,8 @@ const mapStateToProps = (state: { notes: AppState }) => {
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    deleteNote: (id: string) => dispatch(deleteNote(id)),
-    updateNote: (newNote: NoteType, id: string) => dispatch(updateNote(newNote, id)),
+    deleteNote: (id: number) => dispatch(deleteNote(id)),
+    updateNote: (newNote: NoteType, id: number) => dispatch(updateNote(newNote, id)),
   };
 };
 

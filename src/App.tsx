@@ -15,6 +15,7 @@ import Home from "./components/Home";
 import { updateWorkspace } from "./actions";
 import AddEditNote from "./components/AddEditNote";
 import { AppState } from "./reducers/notes";
+import "./style.css";
 
 type AppProps = {
   currentState: AppState,

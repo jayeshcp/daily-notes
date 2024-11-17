@@ -13,7 +13,7 @@ type ListViewProps = {
   items: NoteType[];
   currentWorkspace: string;
   onDelete: (item: NoteType) => void;
-  onUpdate: (newValue: NoteType, id: string) => void;
+  onUpdate: (newValue: NoteType, id: number) => void;
 }
 
 function ListView(props: ListViewProps) {
@@ -27,7 +27,7 @@ function ListView(props: ListViewProps) {
   let [...items] = itemsOriginal;
   items = filterByIdReverse(items);
 
-  const onContentChanged = (newValue: NoteType, id: string) => {
+  const onContentChanged = (newValue: NoteType, id: number) => {
     onUpdate(newValue, id);
   };
 

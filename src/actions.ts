@@ -7,7 +7,7 @@ const createNote = (note: NoteType) => {
     };
   };
   
-  const updateNote = (note: NoteType, id: string) => {
+  const updateNote = (note: NoteType, id: number) => {
     return {
       type: "UPDATE_NOTE",
       payload: {
@@ -17,7 +17,7 @@ const createNote = (note: NoteType) => {
     };
   };
   
-  const deleteNote = (id: string) => {
+  const deleteNote = (id: number) => {
     return {
       type: "DELETE_NOTE",
       payload: {

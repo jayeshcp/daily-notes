@@ -2,20 +2,25 @@ import React from "react";
 import moment from "moment";
 import ContentEditable from "../ContentEditable";
 import { NoteType } from "../shared/types/note";
+import { NavLink } from "react-router-dom";
 
 type ListItemProps = {
   item: NoteType,
   onDelete: (item: NoteType) => void,
-  onContentChanged: (newValue: NoteType, id: string) => void
+  onContentChanged: (newValue: NoteType, id: number) => void
 };
 
 function ListItem({ item, onDelete, onContentChanged }: ListItemProps) {
   return (
     <div className="card border-secondary mb-3" key={item.id}>
       <div className="card-header">
-        <span className="text-warning" data-marker="createdDate">
+        <NavLink
+          className="btn btn-sm btn-link text-warning"
+          data-marker="createdDate"
+          to={`/note/${item.id}`}
+        >
           {moment(item.createdDate).format("MMM D, YYYY (dddd)")}
-        </span>
+        </NavLink>
         <button
           className="btn btn-sm btn-danger pull-right"
           onClick={() => {
@@ -34,9 +39,6 @@ function ListItem({ item, onDelete, onContentChanged }: ListItemProps) {
         <div className="card-text">
           <ContentEditable
             initialValue={item.note}
-            onContentChanged={(newValue: any) =>
-              onContentChanged(newValue, item.id)
-            }
             data-marker="note"
           />
         </div>

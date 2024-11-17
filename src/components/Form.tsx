@@ -2,14 +2,22 @@ import React, { useState } from "react";
 import ReactQuill from "react-quill";
 
 type FormProps = {
-  onChange?: (newValue: string) => void,
-  onFormSubmit: (newValue: string) => void,
-  placeholder?: string
-}
+  onChange?: (newValue: string) => void;
+  onFormSubmit: (newValue: string) => void;
+  onCancel: () => void;
+  initialValue: string | undefined;
+  placeholder?: string;
+};
 
 function Form(props: FormProps) {
-  const { placeholder = 'how was your day?', onChange, onFormSubmit } = props;
-  const [txtValue, setTxtValue] = useState('');
+  const {
+    placeholder = "how was your day?",
+    initialValue,
+    onChange,
+    onFormSubmit,
+    onCancel,
+  } = props;
+  const [txtValue, setTxtValue] = useState(initialValue || "");
 
   const handleOnChange = (newValue: string) => {
     setTxtValue(newValue);
@@ -20,7 +28,11 @@ function Form(props: FormProps) {
 
   const onSave = () => {
     onFormSubmit(txtValue);
-    setTxtValue('');
+    setTxtValue("");
+  };
+
+  const handleCancel = () => {
+    onCancel();
   };
 
   const onKeyDown = (event: any) => {
@@ -33,11 +45,11 @@ function Form(props: FormProps) {
 
   return (
     <div className="row" style={{ marginBottom: "1em" }}>
-      <div className="col-md-12 col-sm-12">
+      <div className="col-md-12 col-sm-1 mb-4">
         <ReactQuill
           className="form-control"
           placeholder={placeholder}
-          theme="bubble"
+          theme="snow"
           value={txtValue}
           onChange={(txtValue) => handleOnChange(txtValue)}
           onKeyDown={(e) => onKeyDown(e)}
@@ -46,13 +58,24 @@ function Form(props: FormProps) {
 
       <div className="col-md-12 col-sm-12">
         <small className="text-muted pull-right">Cmd+Enter to submit</small>
-        <button
-          className="btn btn-success btn-sm btn-block"
-          onClick={onSave}
-          disabled={!txtValue || txtValue.trim() === ""}
-        >
-          Save
-        </button>
+
+        <div className="d-grid gap-2 d-md-block">
+          <button
+            className="btn btn-secondary mr-3"
+            type="button"
+            onClick={handleCancel}
+          >
+            Cancel
+          </button>
+          <button
+            className="btn btn-success"
+            type="button"
+            onClick={onSave}
+            disabled={!txtValue || txtValue.trim() === ""}
+          >
+            Save
+          </button>
+        </div>
       </div>
     </div>
   );
