@@ -6,7 +6,7 @@ import ShowMoreButton from "./components/ShowMoreButton";
 import { filterByIdReverse } from "./Utils";
 import { NoteType } from "./shared/types/note";
 
-const DEFAULT_PAGE_SIZE = 2;
+const DEFAULT_PAGE_SIZE = 10;
 
 type ListViewProps = {
   intl: any,
