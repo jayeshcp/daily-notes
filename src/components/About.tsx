@@ -6,7 +6,9 @@ function About() {
     <div className="row">
       <div className="col-md-12">
         <p>
-          Write and manage your daily work milestones, or use as a daily diary.
+          Stay organized and focused with Notes App, a simple and efficient web app for writing daily notes and tracking work milestones. 
+          Whether you're logging daily stand-ups, capturing quick thoughts, or monitoring project progress, Notes App helps you keep everything in one place. 
+          With clean formatting, powerful search, and customizable tags (coming soon), it's the perfect tool to build a consistent writing habit and stay aligned with your goals.
         </p>
         <p>
           <h6 className="text-success">New Features:</h6>
@@ -20,6 +22,7 @@ function About() {
           <h6 className="text-warning">Coming soon:</h6>
           <ul>
             <li>Supabase for data persistence!</li>
+            <li>Customizable tags</li>
           </ul>
         </p>
       </div>
