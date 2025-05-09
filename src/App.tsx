@@ -24,7 +24,7 @@ type AppProps = {
 };
 
 function App(props: AppProps) {
-  const title = `${config.appName} - v${config.appVersion}`;
+  const title = config.appName;
   const { currentState: { currentWorkspace }, updateWorkspace } = props;
 
   const Root = () => <Redirect to="/home" />;
